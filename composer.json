@@ -1,0 +1,15 @@
+{
+  "name": "drupal/client_error_trace",
+  "description": "Trace 4XX errors for URLs.",
+  "minimum-stability": "stable",
+  "license": "GPL-2.0",
+  "authors": [
+    {
+      "name": "Andrew Berry",
+      "email": "deviantintegral@gmail.com"
+    }
+  ],
+  "require": {
+    "guzzlehttp/guzzle": "~5.0"
+  }
+}
