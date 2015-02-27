@@ -68,7 +68,7 @@ function client_error_trace_form_submit(&$form, &$form_state) {
     $report = $instance->execute($url);
     drupal_set_message($report->resultMessage());
     if ($report->hasSuggestions()) {
-      drupal_set_message($report->suggestions());
+      drupal_set_message(implode(', ', $report->suggestions()));
     }
   }
 }
