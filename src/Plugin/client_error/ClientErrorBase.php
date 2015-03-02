@@ -40,10 +40,8 @@ abstract class ClientErrorBase implements ClientErrorInterface {
    *   TRUE if the path of URL corresponds to a node/<nid> system path.
    */
   protected function urlIsNode(Url $url) {
-    $internal = $this->getInternalUrl($url);
-    $parts = explode('/', substr($internal, 1));
-
-    return isset($parts[0]) && $parts[0] == 'node';
+    $parts = $this->nodeUrlParts($url);
+    return isset($parts[0]) && $parts[0] == 'node' && is_numeric($parts[1]);
   }
 
   /**
@@ -64,6 +62,18 @@ abstract class ClientErrorBase implements ClientErrorInterface {
     return $account;
   }
 
+  /**
+   * Return the parts for a node URL.
+   *
+   * @param \GuzzleHttp\Url $url
+   *   The URL to parse.
+   *
+   * @return array
+   *   An array of URL parts based on slashes in the URL.
+   */
+  private function nodeUrlParts(Url $url) {
+    $internal = $this->getInternalUrl($url);
+    $parts = explode('/', substr($internal, 1));
     return $parts;
   }
 }
