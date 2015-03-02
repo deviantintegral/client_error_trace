@@ -45,6 +45,24 @@ abstract class ClientErrorBase implements ClientErrorInterface {
   }
 
   /**
+   * Return the node ID from a URL.
+   *
+   * @param \GuzzleHttp\Url $url
+   *   The URL to return the node ID from.
+   *
+   * @return int
+   *   The node ID.
+   */
+  protected function urlNodeId(Url $url) {
+    if ($this->urlIsNode($url)) {
+      $parts = $this->nodeUrlParts($url);
+      return (int) $parts[1];
+    }
+
+    throw new \InvalidArgumentException(format_string('!url is not a node view URL.', array('!url' => $url->__toString())));
+  }
+
+  /**
    * Return the default account.
    *
    * @param mixed $account
