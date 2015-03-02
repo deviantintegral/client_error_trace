@@ -29,4 +29,5 @@ trait Translatable {
   public function t($string, array $args = array(), array $options = array()) {
     return t($string, $args, $options);
   }
+
 }

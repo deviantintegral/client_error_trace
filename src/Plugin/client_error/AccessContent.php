@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Contains the access_content plugin.
+ */
 
 namespace Drupal\client_error_trace\Plugin\client_error;
 
@@ -6,7 +10,10 @@ use Drupal\client_error_trace\Annotation\ClientError;
 use GuzzleHttp\Url;
 
 /**
+ * Contains the access_content plugin.
+ *
  * @class AccessContent
+ *
  * @package Drupal\client_error_trace\Plugin\client_error
  *
  * @ClientError(

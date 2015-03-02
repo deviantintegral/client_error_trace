@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Base class for all ClientError plugins.
+ */
 
 namespace Drupal\client_error_trace\Plugin\client_error;
 use GuzzleHttp\Url;
@@ -7,6 +11,7 @@ use GuzzleHttp\Url;
  * Base class for all ClientError plugins.
  *
  * @class ClientErrorBase
+ *
  * @package Drupal\client_error_trace\Plugin\client_error
  */
 abstract class ClientErrorBase implements ClientErrorInterface {
