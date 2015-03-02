@@ -17,15 +17,6 @@ use GuzzleHttp\Url;
 abstract class ClientErrorBase implements ClientErrorInterface {
 
   /**
-   * {@inheritdoc}
-   */
-  public function execute(Url $url, \stdClass $account = NULL) {
-    if (!$account) {
-      $account = drupal_anonymous_user();
-    }
-  }
-
-  /**
    * Return the internal system path for a given URL.
    *
    * @param \GuzzleHttp\Url $url
@@ -53,5 +44,26 @@ abstract class ClientErrorBase implements ClientErrorInterface {
     $parts = explode('/', substr($internal, 1));
 
     return isset($parts[0]) && $parts[0] == 'node';
+  }
+
+  /**
+   * Return the default account.
+   *
+   * @param mixed $account
+   *   The account to check.
+   *
+   * @return mixed
+   *   If $account is NULL, return the anonymous user account. Otherwise, return
+   *   $account.
+   */
+  protected function defaultAccount($account = NULL) {
+    if (!$account) {
+      return drupal_anonymous_user();
+    }
+
+    return $account;
+  }
+
+    return $parts;
   }
 }

@@ -17,11 +17,11 @@ interface ClientErrorInterface {
    *
    * @param \GuzzleHttp\Url $url
    *   The URL to test for client errors.
-   * @param \stdClass $account
+   * @param mixed $account
    *   (optional) The Drupal account to use. Defaults to the anonymous user.
    *
    * @return \Drupal\client_error_trace\Plugin\client_error\ReportInterface
    *   A report with the results from the ClientError test.
    */
-  public function execute(Url $url, \stdClass $account = NULL);
+  public function execute(Url $url, $account = NULL);
 }
