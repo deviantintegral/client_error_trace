@@ -8,6 +8,7 @@ namespace Drupal\client_error_trace\Plugin\client_error;
  * @see AccessContent
  *
  * @class AccessContentReport
+ *
  * @package Drupal\client_error_trace\Plugin\client_error
  */
 class AccessContentReport extends ReportBase {
@@ -18,14 +19,14 @@ class AccessContentReport extends ReportBase {
   public function resultMessage() {
     switch ($this->result) {
       case static::SUCCESS:
-        return t("Anonymous users have the 'access content' permission.");
+        return $this->t("Anonymous users have the 'access content' permission.");
 
       case static::FAILED:
-        return t("Anonymous users do not have the 'access content' permission.");
+        return $this->t("Anonymous users do not have the 'access content' permission.");
 
       case static::SKIPPED:
       default:
-        return t("Access content was skipped as it does not appear to affect this request.");
+        return $this->t("Access content was skipped as it does not appear to affect this request.");
     }
   }
 
@@ -37,11 +38,11 @@ class AccessContentReport extends ReportBase {
 
     switch ($this->result) {
       case static::FAILED:
-        $suggestions[] = t('Give anonymous users <a href="@permissions">permission to access content</a>.', array('@permissions' => url('admin/people/permissions')));
+        $suggestions[] = $this->t('Give anonymous users <a href="@permissions">permission to access content</a>.', array('@permissions' => url('admin/people/permissions')));
         break;
 
       case static::SKIPPED:
-        $suggestions[] = t("Validate the URL is for a node or entity type that depends on the 'access content' permission.");
+        $suggestions[] = $this->t("Validate the URL is for a node or entity type that depends on the 'access content' permission.");
         break;
     }
 

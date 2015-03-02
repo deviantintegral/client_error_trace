@@ -2,6 +2,7 @@
 
 namespace Drupal\client_error_trace\Plugin\client_error;
 
+use Drupal\client_error_trace\Translatable;
 use GuzzleHttp\Url;
 
 /**
@@ -12,6 +13,7 @@ use GuzzleHttp\Url;
  * @package Drupal\client_error_trace\Plugin\client_error
  */
 abstract class ReportBase implements ReportInterface {
+  use Translatable;
 
   /**
    * The result of this report, as a constant from ReportInterface.
