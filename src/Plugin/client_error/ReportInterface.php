@@ -57,7 +57,8 @@ interface ReportInterface {
    * Return an array of suggestions offered by report to resolve the failure.
    *
    * @return array
-   *   An array of strings with human-readable suggestions.
+   *   An array of strings with human-readable suggestions, or an empty array if
+   *   no suggestions are available.
    */
   public function suggestions();
 }

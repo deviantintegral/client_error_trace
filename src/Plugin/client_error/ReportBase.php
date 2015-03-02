@@ -8,6 +8,7 @@ use GuzzleHttp\Url;
  * Base class for all ClientError reports.
  *
  * @class ReportBase
+ *
  * @package Drupal\client_error_trace\Plugin\client_error
  */
 abstract class ReportBase implements ReportInterface {
@@ -24,8 +25,7 @@ abstract class ReportBase implements ReportInterface {
    *
    * @param \GuzzleHttp\Url $url
    *   The URL that was tested.
-   *
-   * @param $result
+   * @param int $result
    *   The result of the ClientError test, as a constant from ReportInterface.
    */
   public function __construct(Url $url, $result) {
@@ -43,7 +43,8 @@ abstract class ReportBase implements ReportInterface {
    * {@inheritdoc}
    */
   public function hasSuggestions() {
-    return $this->result != static::SUCCESS;
+    $suggestions = $this->suggestions();
+    return !empty($suggestions);
   }
 
   /**

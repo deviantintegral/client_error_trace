@@ -33,20 +33,18 @@ class AccessContentReport extends ReportBase {
    * {@inheritdoc}
    */
   public function suggestions() {
+    $suggestions = array();
+
     switch ($this->result) {
       case static::FAILED:
-        return array(
-          t('Give anonymous users <a href="@permissions">permission to access content</a>.', array('@permissions' => url('admin/people/permissions'))),
-        );
+        $suggestions[] = t('Give anonymous users <a href="@permissions">permission to access content</a>.', array('@permissions' => url('admin/people/permissions')));
+        break;
 
       case static::SKIPPED:
-        return array(
-          t("Validate the URL is for a node or entity type that depends on the 'access content' permission."),
-        );
+        $suggestions[] = t("Validate the URL is for a node or entity type that depends on the 'access content' permission.");
+        break;
     }
 
-    return array(
-      t('There are no suggestions available.'),
-    );
+    return $suggestions;
   }
 }
