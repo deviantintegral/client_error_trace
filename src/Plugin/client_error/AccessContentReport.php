@@ -38,7 +38,7 @@ class AccessContentReport extends ReportBase {
 
     switch ($this->result) {
       case static::FAILED:
-        $suggestions[] = $this->t('Give anonymous users <a href="@permissions">permission to access content</a>.', array('@permissions' => url('admin/people/permissions')));
+        $suggestions[] = $this->t('Give anonymous users <a href="@permissions">permission to view published content</a>.', array('@permissions' => url('admin/people/permissions')));
         break;
 
       case static::SKIPPED:
