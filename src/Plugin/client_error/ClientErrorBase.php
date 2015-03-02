@@ -12,6 +12,15 @@ use GuzzleHttp\Url;
 abstract class ClientErrorBase implements ClientErrorInterface {
 
   /**
+   * {@inheritdoc}
+   */
+  public function execute(Url $url, \stdClass $account = NULL) {
+    if (!$account) {
+      $account = drupal_anonymous_user();
+    }
+  }
+
+  /**
    * Return the internal system path for a given URL.
    *
    * @param \GuzzleHttp\Url $url

@@ -20,7 +20,9 @@ class AccessContent extends ClientErrorBase {
   /**
    * {@inheritdoc}
    */
-  public function execute(Url $url) {
+  public function execute(Url $url, \stdClass $account = NULL) {
+    parent::execute($url, $account);
+
     // Find if $url is a node, and if it is check 'access content'.
     if (!$this->urlIsNode($url)) {
       return new AccessContentReport($url, AccessContentReport::SKIPPED);
