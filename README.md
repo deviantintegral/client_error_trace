@@ -49,5 +49,8 @@ reports.
    * A plain-text `description` property describing your plugin.
    * An integer `status_code` property describing what HTTP error code your
      plugin assists in debugging. This will generally be 403 or 404.
+1. Create a new class that extends `ReportBase` and implements `ReportInterface`
+   to use for reporting the results of your client error plugin. Return a new
+   instance of this class from your execute() method.
 1. Clear all caches.
 1. Browse to `admin/reports/client-error`, and your new plugin should be listed.
