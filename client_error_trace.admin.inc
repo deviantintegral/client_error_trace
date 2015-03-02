@@ -5,7 +5,6 @@
  */
 
 use Drupal\client_error_trace\ClientErrorPluginManager;
-use Drupal\client_error_trace\Plugin\client_error\ClientErrorInterface;
 use GuzzleHttp\Url;
 
 /**
@@ -14,6 +13,56 @@ use GuzzleHttp\Url;
 function client_error_trace_form($form, &$form_state) {
   $form = array();
 
+  _client_error_trace_report($form, $form_state);
+
+  $form['url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('The public URL to trace'),
+    '#description' => t('Enter the URL to test as used by the public.'),
+    '#required' => TRUE,
+    '#default_value' => isset($form_state['values']['url']) ? $form_state['values']['url'] : '',
+  );
+
+  _client_error_trace_plugins($form);
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Trace errors'),
+  );
+
+  return $form;
+}
+
+/**
+ * Helper function to add a list of available validations to a form.
+ *
+ * @param array &$form
+ *   The form to add a 'plugins' item to.
+ */
+function _client_error_trace_plugins(array &$form) {
+  $manager = ClientErrorPluginManager::create();
+  $options = array();
+  foreach ($manager->getDefinitions() as $plugin) {
+    $options[$plugin['id']] = $plugin['description'];
+  }
+
+  $form['plugins'] = array(
+    '#type' => 'checkboxes',
+    '#options' => $options,
+    '#title' => t('Validations'),
+    '#default_value' => array_keys($options),
+  );
+}
+
+/**
+ * Helper function to add a client error report to a form.
+ *
+ * @param array &$form
+ *   The form to modify.
+ * @param array &$form_state
+ *   The current state of the form.
+ */
+function _client_error_trace_report(array &$form, array &$form_state) {
   if (isset($form_state['report'])) {
     $form['report'] = array(
       '#markup' => $form_state['report'],
@@ -32,56 +81,23 @@ function client_error_trace_form($form, &$form_state) {
       ),
     );
   }
-
-  $form['url'] = array(
-    '#type' => 'textfield',
-    '#title' => t('The public URL to trace'),
-    '#description' => t('Enter the URL to test as used by the public.'),
-    '#required' => TRUE,
-    '#default_value' => isset($form_state['values']['url']) ? $form_state['values']['url'] : '',
-  );
-
-  $manager = ClientErrorPluginManager::create();
-  $options = array();
-  foreach ($manager->getDefinitions() as $plugin) {
-    $options[$plugin['id']] = $plugin['description'];
-  }
-
-  $form['plugins'] = array(
-    '#type' => 'checkboxes',
-    '#options' => $options,
-    '#title' => t('Validations'),
-    '#default_value' => array_keys($options),
-  );
-
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Trace errors'),
-  );
-
-  return $form;
 }
 
 /**
  * Form callback to run tests against a URL.
+ *
+ * @param array &$form
+ *   The form being submitted.
+ * @param array &$form_state
+ *   The current state of the form.
+ *
+ * @throws \Exception
+ *   Thrown if a client_error plugin could not execute.
  */
-function client_error_trace_form_submit(&$form, &$form_state) {
-  $url = Url::fromString($form_state['values']['url']);
+function client_error_trace_form_submit(array &$form, array &$form_state) {
   $manager = ClientErrorPluginManager::create();
-  $results = array();
-  foreach ($form_state['values']['plugins'] as $plugin) {
-    /** @var ClientErrorInterface $instance */
-    $instance = $manager->createInstance($plugin);
-    $report = $instance->execute($url);
-
-    $results[] = theme('client_error_trace_item', array(
-      'result' => $report->result(),
-      'description' => check_plain($manager->getDefinition($plugin)['description']),
-      'message' => $report->resultMessage(),
-      'suggestions' => $report->suggestions(),
-    ));
-
-  }
+  $url = Url::fromString($form_state['values']['url']);
+  $results = $manager->execute($url, $form_state['values']['plugins']);
 
   $form_state['report'] = theme('client_error_trace_report', array('url' => $url, 'results' => $results));
 

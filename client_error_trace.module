@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Hook implementations for client_error_trace.
+ */
 
 /**
  * Implements hook_menu().
@@ -30,7 +34,12 @@ function client_error_trace_theme($existing, $type, $theme, $path) {
       'template' => 'client_error_trace_report',
     ),
     'client_error_trace_item' => array(
-      'variables' => array('result' => NULL, 'description' => NULL, 'message' => NULL, 'suggestions' => NULL),
+      'variables' => array(
+        'result' => NULL,
+        'description' => NULL,
+        'message' => NULL,
+        'suggestions' => NULL,
+      ),
       'path' => drupal_get_path('module', 'client_error_trace') . '/template',
       'template' => 'client_error_trace_item',
     ),
