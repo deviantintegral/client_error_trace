@@ -1,0 +1,4 @@
+name = Client Error Trace
+description = Trace 4XX errors for URLs.
+core = 7.x
+dependencies[] = plug
