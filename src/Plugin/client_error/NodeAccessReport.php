@@ -48,6 +48,10 @@ class NodeAccessReport extends ReportBase {
    *   (optional) The exception that was thrown.
    */
   public function __construct(Url $url, $account, $result, $node = NULL, NodeAccessException $e = NULL) {
+    if ($result != ReportInterface::SKIPPED && !$node) {
+      throw new \InvalidArgumentException('Node access reports must include a node unless the report has been skipped.');
+    }
+
     $this->node = $node;
     $this->nodeAccessException = $e;
     parent::__construct($url, $account, $result);
