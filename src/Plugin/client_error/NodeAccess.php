@@ -32,8 +32,7 @@ class NodeAccess extends ClientErrorBase {
     $node = NULL;
     $e = NULL;
 
-    if ($this->urlIsNode($url)) {
-      $node = node_load($this->urlNodeId($url));
+    if ($this->urlIsNode($url) && $node = node_load($this->urlNodeId($url))) {
       try {
         $this->access('view', $node, $account);
         $result = ReportInterface::SUCCESS;
