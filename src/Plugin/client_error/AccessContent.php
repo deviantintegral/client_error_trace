@@ -32,13 +32,16 @@ class AccessContent extends ClientErrorBase {
 
     // Find if $url is a node, and if it is check 'access content'.
     if (!$this->urlIsNode($url)) {
-      return new AccessContentReport($url, AccessContentReport::SKIPPED);
+      $result = AccessContentReport::SKIPPED;
+    }
+    elseif (user_access('access content', $account)) {
+      $result = AccessContentReport::SUCCESS;
+    }
+    else {
+      $result = AccessContentReport::FAILED;
     }
 
-    if (user_access('access content', $account)) {
-      return new AccessContentReport($url, AccessContentReport::SUCCESS);
-    }
-
-    return new AccessContentReport($url, AccessContentReport::FAILED);
+    return new AccessContentReport($url, $account, $result);
   }
+
 }

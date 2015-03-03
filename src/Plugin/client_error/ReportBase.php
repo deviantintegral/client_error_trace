@@ -23,14 +23,24 @@ abstract class ReportBase implements ReportInterface {
   protected $result;
 
   /**
+   * The Drupal account associated with this report.
+   *
+   * @var \stdClass
+   */
+  protected $account;
+
+  /**
    * Construct a new report for a given URL and result.
    *
    * @param \GuzzleHttp\Url $url
    *   The URL that was tested.
+   * @param mixed $account
+   *   The Drupal account associated with this report.
    * @param int $result
    *   The result of the ClientError test, as a constant from ReportInterface.
    */
-  public function __construct(Url $url, $result) {
+  public function __construct(Url $url, $account, $result) {
+    $this->account = $account;
     $this->setResult($result);
   }
 
