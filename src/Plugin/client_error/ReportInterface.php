@@ -42,6 +42,7 @@ interface ReportInterface {
    * Return the message associated with this report.
    *
    * @return string
+   *   The result message as a translated string.
    */
   public function resultMessage();
 
