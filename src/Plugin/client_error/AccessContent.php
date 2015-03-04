@@ -27,18 +27,21 @@ class AccessContent extends ClientErrorBase {
   /**
    * {@inheritdoc}
    */
-  public function execute(Url $url, \stdClass $account = NULL) {
-    parent::execute($url, $account);
+  public function execute(Url $url, $account = NULL) {
+    $account = $this->defaultAccount($account);
 
     // Find if $url is a node, and if it is check 'access content'.
     if (!$this->urlIsNode($url)) {
-      return new AccessContentReport($url, AccessContentReport::SKIPPED);
+      $result = AccessContentReport::SKIPPED;
+    }
+    elseif (user_access('access content', $account)) {
+      $result = AccessContentReport::SUCCESS;
+    }
+    else {
+      $result = AccessContentReport::FAILED;
     }
 
-    if (user_access('access content', drupal_anonymous_user())) {
-      return new AccessContentReport($url, AccessContentReport::SUCCESS);
-    }
-
-    return new AccessContentReport($url, AccessContentReport::FAILED);
+    return new AccessContentReport($url, $account, $result);
   }
+
 }

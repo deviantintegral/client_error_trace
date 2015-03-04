@@ -42,7 +42,7 @@ class AccessContentReport extends ReportBase {
         break;
 
       case static::SKIPPED:
-        $suggestions[] = $this->t("Validate the URL is for a node or entity type that depends on the 'access content' permission.");
+        $suggestions[] = $this->t("Validate the URL is for directly viewing a node.");
         break;
     }
 

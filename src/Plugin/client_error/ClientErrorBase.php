@@ -17,15 +17,6 @@ use GuzzleHttp\Url;
 abstract class ClientErrorBase implements ClientErrorInterface {
 
   /**
-   * {@inheritdoc}
-   */
-  public function execute(Url $url, \stdClass $account = NULL) {
-    if (!$account) {
-      $account = drupal_anonymous_user();
-    }
-  }
-
-  /**
    * Return the internal system path for a given URL.
    *
    * @param \GuzzleHttp\Url $url
@@ -49,9 +40,58 @@ abstract class ClientErrorBase implements ClientErrorInterface {
    *   TRUE if the path of URL corresponds to a node/<nid> system path.
    */
   protected function urlIsNode(Url $url) {
+    $parts = $this->nodeUrlParts($url);
+    return isset($parts[0]) && $parts[0] == 'node' && is_numeric($parts[1]);
+  }
+
+  /**
+   * Return the node ID from a URL.
+   *
+   * @param \GuzzleHttp\Url $url
+   *   The URL to return the node ID from.
+   *
+   * @return int
+   *   The node ID.
+   */
+  protected function urlNodeId(Url $url) {
+    if ($this->urlIsNode($url)) {
+      $parts = $this->nodeUrlParts($url);
+      return (int) $parts[1];
+    }
+
+    throw new \InvalidArgumentException(format_string('!url is not a node view URL.', array('!url' => $url->__toString())));
+  }
+
+  /**
+   * Return the default account.
+   *
+   * @param mixed $account
+   *   The account to check.
+   *
+   * @return mixed
+   *   If $account is NULL, return the anonymous user account. Otherwise, return
+   *   $account.
+   */
+  protected function defaultAccount($account = NULL) {
+    if (!$account) {
+      return drupal_anonymous_user();
+    }
+
+    return $account;
+  }
+
+  /**
+   * Return the parts for a node URL.
+   *
+   * @param \GuzzleHttp\Url $url
+   *   The URL to parse.
+   *
+   * @return array
+   *   An array of URL parts based on slashes in the URL.
+   */
+  private function nodeUrlParts(Url $url) {
     $internal = $this->getInternalUrl($url);
     $parts = explode('/', substr($internal, 1));
-
-    return isset($parts[0]) && $parts[0] == 'node';
+    return $parts;
   }
 }
