@@ -7,7 +7,7 @@
 namespace Drupal\client_error_trace\Plugin\client_error;
 
 use Drupal\client_error_trace\Annotation\ClientError;
-use GuzzleHttp\Url;
+use Guzzle\Http\Url;
 
 /**
  * ClientError plugin to validate node access.

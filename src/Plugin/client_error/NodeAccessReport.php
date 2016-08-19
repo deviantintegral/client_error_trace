@@ -5,7 +5,7 @@
  */
 
 namespace Drupal\client_error_trace\Plugin\client_error;
-use GuzzleHttp\Url;
+use Guzzle\Http\Url;
 
 /**
  * Report the results of an NodeAccess check.
@@ -35,7 +35,7 @@ class NodeAccessReport extends ReportBase {
   /**
    * Construct a new NodeAccessReport.
    *
-   * @param \GuzzleHttp\Url $url
+   * @param \Guzzle\Http\Url $url
    *   The URL that was checked for access.
    * @param mixed $account
    *   The account that was used when checking $url.

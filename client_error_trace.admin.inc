@@ -5,7 +5,7 @@
  */
 
 use Drupal\client_error_trace\ClientErrorPluginManager;
-use GuzzleHttp\Url;
+use Guzzle\Http\Url;
 
 /**
  * Form callback to run tests against a URL.
@@ -96,7 +96,7 @@ function _client_error_trace_report(array &$form, array &$form_state) {
  */
 function client_error_trace_form_submit(array &$form, array &$form_state) {
   $manager = ClientErrorPluginManager::create();
-  $url = Url::fromString($form_state['values']['url']);
+  $url = Url::factory($form_state['values']['url']);
   $results = $manager->execute($url, $form_state['values']['plugins']);
 
   $form_state['report'] = theme('client_error_trace_report', array('url' => $url, 'results' => $results));

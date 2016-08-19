@@ -3,7 +3,7 @@
 
 namespace Drupal\client_error_trace\Plugin\client_error;
 
-use GuzzleHttp\Url;
+use Guzzle\Http\Url;
 
 /**
  * Interface for all ClientError plugins.
@@ -15,7 +15,7 @@ interface ClientErrorInterface {
   /**
    * Execute a test for a given URL.
    *
-   * @param \GuzzleHttp\Url $url
+   * @param \Guzzle\Http\Url $url
    *   The URL to test for client errors.
    * @param mixed $account
    *   (optional) The Drupal account to use. Defaults to the anonymous user.

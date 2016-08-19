@@ -9,7 +9,7 @@ namespace Drupal\client_error_trace;
 use Drupal\client_error_trace\Plugin\client_error\ClientErrorInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\plug\Util\Module;
-use GuzzleHttp\Url;
+use Guzzle\Http\Url;
 
 /**
  * Manager to load ClientError plugins.

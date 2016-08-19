@@ -3,7 +3,7 @@
 namespace Drupal\client_error_trace\Plugin\client_error;
 
 use Drupal\client_error_trace\Translatable;
-use GuzzleHttp\Url;
+use Guzzle\Http\Url;
 
 /**
  * Base class for all ClientError reports.
@@ -32,7 +32,7 @@ abstract class ReportBase implements ReportInterface {
   /**
    * Construct a new report for a given URL and result.
    *
-   * @param \GuzzleHttp\Url $url
+   * @param \Guzzle\Http\Url $url
    *   The URL that was tested.
    * @param mixed $account
    *   The Drupal account associated with this report.

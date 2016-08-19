@@ -5,7 +5,7 @@
  */
 
 namespace Drupal\client_error_trace\Plugin\client_error;
-use GuzzleHttp\Url;
+use Guzzle\Http\Url;
 
 /**
  * Base class for all ClientError plugins.
@@ -19,7 +19,7 @@ abstract class ClientErrorBase implements ClientErrorInterface {
   /**
    * Return the internal system path for a given URL.
    *
-   * @param \GuzzleHttp\Url $url
+   * @param \Guzzle\Http\Url $url
    *   The URL to return the normal path for.
    *
    * @return string
@@ -33,7 +33,7 @@ abstract class ClientErrorBase implements ClientErrorInterface {
   /**
    * Return if a URL corresponds to a node/<nid> system path.
    *
-   * @param \GuzzleHttp\Url $url
+   * @param \Guzzle\Http\Url $url
    *   The URL to check.
    *
    * @return bool
@@ -47,7 +47,7 @@ abstract class ClientErrorBase implements ClientErrorInterface {
   /**
    * Return the node ID from a URL.
    *
-   * @param \GuzzleHttp\Url $url
+   * @param \Guzzle\Http\Url $url
    *   The URL to return the node ID from.
    *
    * @return int
@@ -83,7 +83,7 @@ abstract class ClientErrorBase implements ClientErrorInterface {
   /**
    * Return the parts for a node URL.
    *
-   * @param \GuzzleHttp\Url $url
+   * @param \Guzzle\Http\Url $url
    *   The URL to parse.
    *
    * @return array
